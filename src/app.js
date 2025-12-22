@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');   
 
+const errorHandler = require ('./middleware/error.middleware');
+const authRoutes = require ('./modules/auth/auth.routes');
+
 const app = express();
 
 app.use(cors());
@@ -11,5 +14,9 @@ app.get("/health", (req,res)=>{
     console.log("Health Check OK");
     res.status(200).json({status:"OK"});
 })
+app.use("/api/auth", authRoutes);
+
+// Global Error Handler
+app.use(errorHandler);
 
 module.exports = app;
