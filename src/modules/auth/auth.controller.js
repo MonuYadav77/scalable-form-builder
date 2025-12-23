@@ -18,7 +18,8 @@ const register = async (req,res,next) =>{
 
 const login = async(req,res,next) =>{
     try{
-        const result = await authservice.loginUser(req.body);
+        const { email, password } = req.body;
+        const result = await authservice.loginUser(email, password);
         res.status(200).json(result);
 
     }

@@ -41,7 +41,8 @@ const loginUser = async(email,password) =>{
         userId : user._id,
         role: user.role
     }
-    let jwtscretkey = process.env.JWT_SECRET_KEY;
+    let jwtscretkey = process.env.JWT_SECRET;
+    console.log("JWT SECRET KEY:", jwtscretkey);
 
     //create token 
     const token = jwt.sign(data, jwtscretkey, { expiresIn: '1h' });

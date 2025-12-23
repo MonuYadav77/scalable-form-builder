@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const errorHandler = require ('./middleware/error.middleware');
 const authRoutes = require ('./modules/auth/auth.routes');
+const formRoutes = require('./modules/form/form.routes');
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.get("/health", (req,res)=>{
     res.status(200).json({status:"OK"});
 })
 app.use("/api/auth", authRoutes);
+
+app.use('/api/forms', formRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
