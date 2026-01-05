@@ -6,10 +6,10 @@ const authMiddleware = (req,res,next)=>{
         return res.status(401).json({message:'Authorization header missing'});
     }
 
-    const token = autheHeader.split(' ')[1]; // spplit by space so we get the token part
+    const token = authHeader.split(' ')[1]; // spplit by space so we get the token part
 
     try{
-        const decorded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const decorded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decorded; //{userId,role}
         next();
 
