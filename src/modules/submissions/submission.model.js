@@ -12,7 +12,7 @@ const submissionSchema = new mongoose.Schema(
             index: true
         },
         answers: {
-            type: object,
+            type: Object,
             required: true
         },
     },
