@@ -12,6 +12,7 @@ const startConsumer = async() =>{
     await consumer.run({
         eachMessage : async({message}) =>{
             const data  =  JSON.parse(message.value.toString());
+            console.log("📩 Received message from Kafka:", data);
             await Submission.create(data);
         },
     });
