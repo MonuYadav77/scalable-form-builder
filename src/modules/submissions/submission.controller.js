@@ -1,5 +1,6 @@
 const submissionService = require('./submission.service');
 const logger = require('../../utils/logger');
+const Submission = require('./submission.model');
 
 //controller to handle form submission
 
@@ -31,5 +32,30 @@ const submitForm = async (req,res,next) =>{
         next(err);
     }   
 };
+const getSubmissions = async (req, res, next) => {
+  try {
+    const { formId } = req.params;
 
-module.exports = {submitForm};
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Submission.countDocuments({ formId });
+
+    const submissions = await Submission.find({ formId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+      data: submissions,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+        module.exports = {submitForm, getSubmissions};
