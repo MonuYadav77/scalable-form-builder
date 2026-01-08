@@ -6,6 +6,8 @@ const authRoutes = require ('./modules/auth/auth.routes');
 const formRoutes = require('./modules/form/form.routes');
 
 const submissionRoutes = require('./modules/submissions/submission.route');
+//logger
+const requestLogger = require ('./middleware/requestLogger');
 
 const app = express();
 
@@ -25,5 +27,8 @@ app.use('/api/submissions', submissionRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
+
+//Logger
+app.use(requestLogger);
 
 module.exports = app;
